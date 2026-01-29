@@ -1,22 +1,34 @@
 const Slide01Title = () => (
-  <>
-    <h1>CURSOR SDLC WORKSHOP</h1>
-    <p className="tagline">Experience the Software Development Lifecycle Firsthand</p>
-    <div className="meta-info">
-      <div className="meta-item">
-        <div className="label">Duration</div>
-        <div className="value">2 Hours</div>
+  <div className="title-hero">
+    <div className="title-badge">Interactive Workshop</div>
+    <h1 className="title-main">
+      <span className="title-cursor">Cursor</span>
+      <span className="title-amp">&</span>
+      <span className="title-sdlc">SDLC</span>
+    </h1>
+    <p className="title-tagline">
+      Experience the Software Development Lifecycle Firsthand
+    </p>
+    <div className="title-pills">
+      <div className="title-pill">
+        <span className="pill-icon">⏱</span>
+        <span>2 Hours</span>
       </div>
-      <div className="meta-item">
-        <div className="label">Audience</div>
-        <div className="value">AEs, FE, ADMs</div>
+      <div className="title-pill">
+        <span className="pill-icon">👥</span>
+        <span>Teams of 5</span>
       </div>
-      <div className="meta-item">
-        <div className="label">Teams</div>
-        <div className="value">5 → 20+</div>
+      <div className="title-pill">
+        <span className="pill-icon">🚀</span>
+        <span>Hands-On</span>
       </div>
     </div>
-  </>
+    <div className="title-decorations">
+      <div className="decoration decoration-1"></div>
+      <div className="decoration decoration-2"></div>
+      <div className="decoration decoration-3"></div>
+    </div>
+  </div>
 )
 
 export default Slide01Title

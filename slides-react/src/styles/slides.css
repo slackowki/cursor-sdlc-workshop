@@ -82,9 +82,9 @@ h1 {
 }
 
 h2 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: var(--text-primary);
 }
 
@@ -122,22 +122,144 @@ h3 {
   color: var(--red);
 }
 
-/* Title Slide */
-.title-slide {
+/* Title Slide - Fun Hero Style */
+.title-hero {
   text-align: center;
+  position: relative;
+  padding: 2rem;
+  overflow: hidden;
 }
 
-.title-slide h1 {
+.title-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+}
+
+.title-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.title-cursor {
   font-size: 5rem;
-  margin-bottom: 0.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00d4aa, #00b894);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.title-slide .tagline {
-  font-size: 2rem;
+.title-amp {
+  font-size: 3.5rem;
+  font-weight: 300;
   color: var(--text-secondary);
-  margin-bottom: 3rem;
+  opacity: 0.4;
+  -webkit-text-fill-color: var(--text-secondary);
+  background: none;
 }
 
+.title-sdlc {
+  font-size: 5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title-tagline {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.title-pills {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.title-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  border: 2px solid #f0f0f0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.title-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.pill-icon {
+  font-size: 1.2rem;
+}
+
+/* Decorative elements */
+.title-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.decoration {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+}
+
+.decoration-1 {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, #00d4aa, #00b894);
+  top: -80px;
+  right: 5%;
+}
+
+.decoration-2 {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  bottom: -60px;
+  left: 8%;
+}
+
+.decoration-3 {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  top: 30%;
+  right: 15%;
+  opacity: 0.1;
+}
+
+/* Legacy meta styles (keep for compatibility) */
 .meta-info {
   display: flex;
   gap: 3rem;
@@ -398,13 +520,13 @@ h3 {
 .checklist {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.25rem;
 }
 
 .check-item {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
+  gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   background: var(--card-bg);
   border-radius: 6px;
@@ -416,19 +538,19 @@ h3 {
 .check-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 0.35rem;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.25rem;
   border-left: 3px solid;
   background: transparent;
 }
 
 .check-group-label {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.05rem;
 }
 
 .check-group.git {
@@ -443,20 +565,20 @@ h3 {
   background: rgba(133, 153, 0, 0.15);
   border-radius: 8px;
   border-left: none;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .check-group.work .check-group-label {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 2px;
-  padding: 0.3rem 0.6rem;
+  padding: 0.2rem 0.5rem;
   background: var(--green);
   color: white;
   border-radius: 4px;
   display: inline-block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 /* Section-specific work colors */
@@ -494,37 +616,37 @@ h3 {
 .check-group .check-item {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
-  padding: 0.4rem 0.6rem;
-  font-size: 0.9rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
 }
 
 .check-box {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border: 2px solid var(--green);
   border-radius: 3px;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .check-item.has-code {
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.2rem;
 }
 
 .check-item.has-code .check-header {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 /* Code blocks */
 .code-block {
   background: var(--code-bg);
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
   font-family: 'Fira Code', 'Monaco', monospace;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   overflow-x: auto;
   border: 1px solid var(--border-subtle);
   width: 100%;
@@ -554,8 +676,8 @@ h3 {
 .section-header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .section-badge {
@@ -588,7 +710,7 @@ h3 {
 }
 
 .phase-badge {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
@@ -714,9 +836,9 @@ h3 {
 
 /* Scrollable content for long slides */
 .scrollable {
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 160px);
   overflow-y: auto;
-  padding-right: 0.75rem;
+  padding-right: 0.5rem;
 }
 
 .scrollable::-webkit-scrollbar {
