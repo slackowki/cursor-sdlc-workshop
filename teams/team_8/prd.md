@@ -6,11 +6,11 @@
 
 ## Project Overview
 
-**Project Name:** _[Give your project a name]_
+**Project Name:** Memory Match
 
-**One-line Description:** _[What does it do in one sentence?]_
+**One-line Description:** A web-based card flip game where players find matching pairs.
 
-**Type:** _[e.g., Chrome Extension, Web App, CLI Tool, etc.]_
+**Type:** Web App
 
 ---
 
@@ -54,11 +54,11 @@
 
 | Name | Task | Description |
 |------|------|-------------|
-| _[Name 1]_ | _[Feature 1]_ | _[Brief description]_ |
-| _[Name 2]_ | _[Feature 2]_ | _[Brief description]_ |
-| _[Name 3]_ | _[Feature 3]_ | _[Brief description]_ |
-| _[Name 4]_ | _[Feature 4]_ | _[Brief description]_ |
-| _[Name 5]_ | _[Feature 5]_ | _[Brief description]_ |
+| Kristin Z | Move counter | Displays number of card flips/attempts |
+| TBD | Timer | Shows elapsed time since game start |
+| TBD | Win animation | Confetti or celebration when all pairs are found |
+| TBD | Difficulty levels | Toggle between grid sizes (e.g., 4×4 vs 6×6) |
+| TBD | Restart button | Button to reset the game and shuffle cards |
 
 ### Task Guidelines
 - Each task should add something **visible** to the project
@@ -73,10 +73,14 @@
 > **One person** creates the foundation that everyone else builds on.
 
 **What the MVP includes:**
-- _[Describe the minimal working version]_
+- Grid of face-down cards (e.g., 4×4 or 4×3)
+- Click to flip a card, click another to try to match
+- Basic match logic (flip back if no match, stay face-up if match)
+- Simple win state when all pairs are found
+- Plain HTML/CSS/JS or React single-page app
 
 **What it does NOT include:**
-- _[List features deliberately left out for team members to add]_
+- Move counter, timer, win animation, difficulty levels, restart button (these are the feature slots)
 
 ---
 
@@ -84,30 +88,30 @@
 
 > These are the features team members will add. Design them to be **independent** so people can work in parallel.
 
-### Feature 1: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 1: Move Counter
+- **Assigned to:** Kristin Z
+- **Description:** Displays the number of card flip attempts. Increments each time the player selects a second card (one "move" = one pair attempt).
+- **Files to modify/create:** Add to main game component/script; update HTML or React component for the display area.
 
-### Feature 2: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 2: Timer
+- **Assigned to:** TBD
+- **Description:** Shows elapsed time since the game started. Starts on first card flip, stops when the player wins.
+- **Files to modify/create:** Add timer state and display to main game component/script.
 
-### Feature 3: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 3: Win Animation
+- **Assigned to:** TBD
+- **Description:** Plays a celebration (e.g., confetti, modal, or animation) when all pairs are matched.
+- **Files to modify/create:** Add win-state handler and animation component or CSS; optionally add a lightweight confetti library.
 
-### Feature 4: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 4: Difficulty Levels
+- **Assigned to:** TBD
+- **Description:** Lets the player choose grid size (e.g., 4×4 easy, 6×6 hard) before starting. Restarts game with new layout.
+- **Files to modify/create:** Add difficulty selector UI and logic to generate grids of different sizes.
 
-### Feature 5: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 5: Restart Button
+- **Assigned to:** TBD
+- **Description:** A button to reset the game—reshuffle cards, clear state, and start over.
+- **Files to modify/create:** Add button to UI and reset function to game logic.
 
 ---
 
