@@ -14,20 +14,50 @@
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
+      /* Tie-dye: calm pastel spiral — blush → peach → mint → sage → powder blue → lavender → rose */
+      background:
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(255, 255, 255, 0.18) 0%, transparent 55%),
+        conic-gradient(
+          from -40deg at 50% 50%,
+          #e8b4b8 0deg,
+          #f0d0c0 30deg,
+          #e8e8c8 60deg,
+          #c8d8c8 90deg,
+          #b0d0d8 120deg,
+          #b8d0e8 150deg,
+          #c8c0e0 180deg,
+          #d8c0d8 210deg,
+          #e0c5d0 240deg,
+          #e8b8c8 270deg,
+          #e8b4b8 300deg,
+          #f0d0c0 360deg
+        );
+      background-attachment: fixed;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.4);
     }
-    h1 { font-size: 1.5rem; margin-bottom: 2rem; }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
     .cue {
       font-size: 2rem;
       font-weight: 600;
       margin-bottom: 2rem;
       min-height: 3rem;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     .breath-visual {
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background: #e0e7ff;
+      background: linear-gradient(135deg, #d8c0d8 0%, #b8d0e8 50%, #c8d8c8 100%);
       margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(184, 208, 232, 0.35);
     }
     .pattern-selector {
       display: flex;
@@ -56,10 +86,20 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      font-weight: 600;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .start { background: #4f46e5; color: white; }
-    .stop { background: #64748b; color: white; }
+    .start {
+      background: linear-gradient(135deg, #c8c0e0 0%, #b8d0e8 50%, #c8d8c8 100%);
+      color: #2d2a3a;
+      box-shadow: 0 4px 14px rgba(184, 208, 232, 0.35);
+    }
+    .stop {
+      background: linear-gradient(135deg, #a8b0b8 0%, #9098a0 100%);
+      color: #f0f4f8;
+      box-shadow: 0 4px 14px rgba(144, 152, 160, 0.25);
+    }
   </style>
 </head>
 <body>
