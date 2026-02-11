@@ -72,10 +72,13 @@ function App() {
 
       {/* --- Feature slots will plug in here (history, saved outfits, etc.) --- */}
 
-      {/* About Us Link */}
-      <button className="about-link" onClick={() => setShowAbout(true)}>
-        About Us
-      </button>
+      {/* Footer with About Us Link */}
+      <footer className="app-footer">
+        <button className="about-link" onClick={() => setShowAbout(true)}>
+          About Us
+        </button>
+        <p className="footer-tagline">AI-Powered Style for Every Occasion</p>
+      </footer>
     </div>
   );
 }

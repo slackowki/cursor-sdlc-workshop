@@ -184,21 +184,42 @@
 
 .stylist-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.04);
   border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #ddd;
+  text-decoration: none;
   transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .stylist-item:hover {
   background: linear-gradient(135deg, #667eea, #764ba2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.stylist-item:hover .stylist-name {
   color: white;
-  transform: translateY(-2px);
+}
+
+.stylist-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+.stylist-item:hover .stylist-icon {
+  transform: scale(1.15);
+}
+
+.stylist-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ddd;
+  transition: color 0.2s ease;
 }
 
 /* ---------- Footer ---------- */
@@ -247,10 +268,13 @@
 
   .stylist-item {
     background: rgba(0, 0, 0, 0.03);
-    color: #444;
   }
 
-  .stylist-item:hover {
+  .stylist-name {
+    color: #333;
+  }
+
+  .stylist-item:hover .stylist-name {
     color: white;
   }
 }

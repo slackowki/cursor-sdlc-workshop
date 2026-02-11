@@ -91,12 +91,30 @@ function AboutUs({ onBack }) {
       <div className="about-card">
         <h2 className="about-section-title">Meet Our Pro Stylists</h2>
         <div className="stylists-list">
-          <div className="stylist-item">Zoe Barnswell</div>
-          <div className="stylist-item">Will Ziesing</div>
-          <div className="stylist-item">Faisal Shaikh</div>
-          <div className="stylist-item">Ryan Aznar</div>
-          <div className="stylist-item">Noah Zender</div>
-          <div className="stylist-item">Audrey Leung</div>
+          <a href="https://www.linkedin.com/in/zoe-barnswell-00024b121/" target="_blank" rel="noopener noreferrer" className="stylist-item">
+            <span className="stylist-icon">👩‍🎨</span>
+            <span className="stylist-name">Zoe Barnswell</span>
+          </a>
+          <a href="https://www.linkedin.com/in/will-ziesing/" target="_blank" rel="noopener noreferrer" className="stylist-item">
+            <span className="stylist-icon">👨‍🎨</span>
+            <span className="stylist-name">Will Ziesing</span>
+          </a>
+          <a href="https://www.linkedin.com/in/faisalshaikh96/" target="_blank" rel="noopener noreferrer" className="stylist-item">
+            <span className="stylist-icon">👨‍💼</span>
+            <span className="stylist-name">Faisal Shaikh</span>
+          </a>
+          <a href="https://www.linkedin.com/in/raznar/" target="_blank" rel="noopener noreferrer" className="stylist-item">
+            <span className="stylist-icon">👨‍🎨</span>
+            <span className="stylist-name">Ryan Aznar</span>
+          </a>
+          <a href="https://www.linkedin.com/in/noahzender/" target="_blank" rel="noopener noreferrer" className="stylist-item">
+            <span className="stylist-icon">👨‍💼</span>
+            <span className="stylist-name">Noah Zender</span>
+          </a>
+          <a href="https://www.linkedin.com/in/xuaudrey/" target="_blank" rel="noopener noreferrer" className="stylist-item">
+            <span className="stylist-icon">👩‍💼</span>
+            <span className="stylist-name">Audrey Leung</span>
+          </a>
         </div>
       </div>
 
