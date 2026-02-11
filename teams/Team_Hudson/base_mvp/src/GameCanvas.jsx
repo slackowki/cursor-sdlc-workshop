@@ -11,6 +11,7 @@ import {
   detectCollision,
   hasWon,
 } from './gameLogic';
+import { updateNowPassingLandmark, preloadLandmarkImages } from './Landmarks';
 import { drawFrame } from './renderer';
 import { soundManager } from './soundManager';
 
@@ -41,6 +42,10 @@ export default function GameCanvas({ onWin, onLose }) {
     return () => {
       soundManager.stopWaterSound();
     };
+  }, []);
+
+  useEffect(() => {
+    preloadLandmarkImages();
   }, []);
 
   useEffect(() => {
@@ -93,6 +98,7 @@ export default function GameCanvas({ onWin, onLose }) {
       maybeSpawnIceberg(state, timestamp);
       updateBoat(state);
       updateIcebergsAndDistance(state, deltaMs);
+      updateNowPassingLandmark(state, timestamp);
 
       if (detectCollision(state)) {
         soundManager.stopWaterSound();
