@@ -199,6 +199,11 @@ Optional rollup summary:
 - **Description:** Present ACV range and ACV->CTR points with clear rationale, plus preset scenarios, reset, and copy-to-clipboard summary.
 - **Files to modify/create:** `src/components/ResultsPanel.tsx`, `src/components/DiscountSummary.tsx`, `src/components/ScenarioPresets.tsx`, `src/lib/formatters.ts`, `src/App.tsx`
 
+### Feature 5: Sound Effects
+- **Assigned to:** Ali
+- **Description:** Play a sound when a card is flipped and a different sound when a pair matches. Can use the Web Audio API or a simple audio element.
+- **Files to modify/create:** `App.jsx` or main game component, optional audio files or inline audio using Web Audio API
+
 ---
 
 ## Success Criteria
