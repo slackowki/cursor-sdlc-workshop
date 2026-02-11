@@ -6,11 +6,11 @@
 
 ## Project Overview
 
-**Project Name:** _[Give your project a name]_
+**Project Name:** Whack-a-Mole
 
-**One-line Description:** _[What does it do in one sentence?]_
+**One-line Description:** Click the moles before they disappear to rack up points.
 
-**Type:** _[e.g., Chrome Extension, Web App, CLI Tool, etc.]_
+**Type:** Web App (React + Vite)
 
 ---
 
@@ -54,11 +54,12 @@
 
 | Name | Task | Description |
 |------|------|-------------|
-| _[Name 1]_ | _[Feature 1]_ | _[Brief description]_ |
-| _[Name 2]_ | _[Feature 2]_ | _[Brief description]_ |
-| _[Name 3]_ | _[Feature 3]_ | _[Brief description]_ |
-| _[Name 4]_ | _[Feature 4]_ | _[Brief description]_ |
-| _[Name 5]_ | _[Feature 5]_ | _[Brief description]_ |
+| Person 1 (MVP builder) | Base Game | Build the base game: 3x3 grid, moles pop up randomly, click to score, 30-second round |
+| Person 2 | Scoreboard | Display current score, track high score in localStorage, show "New High Score!" message |
+| Person 3 | Difficulty Settings | Slider or buttons to change mole speed (easy/medium/hard), persist choice |
+| Person 4 | Sound Effects | Whack sound on hit, miss sound on click-empty, round-start/round-end sounds |
+| Person 5 | Timer and Round Display | Countdown bar, round number, "Game Over" screen with stats |
+| Person 6 | Animations | Mole pop-up/pop-down CSS transitions, shake on miss, confetti on new high score |
 
 ### Task Guidelines
 - Each task should add something **visible** to the project
@@ -73,10 +74,19 @@
 > **One person** creates the foundation that everyone else builds on.
 
 **What the MVP includes:**
-- _[Describe the minimal working version]_
+- 3x3 grid of "holes"
+- Moles appear in random holes every ~800ms
+- Click a mole to score +1
+- Basic score counter at the top
+- 30-second game timer
+- Scaffolded with Vite (`npm create vite@latest -- --template react`)
 
 **What it does NOT include:**
-- _[List features deliberately left out for team members to add]_
+- No high score tracking (Scoreboard feature)
+- No difficulty options (Difficulty Settings feature)
+- No audio (Sound Effects feature)
+- No fancy timer UI or game-over screen (Timer feature)
+- No CSS animations or confetti (Animations feature)
 
 ---
 
@@ -84,30 +94,30 @@
 
 > These are the features team members will add. Design them to be **independent** so people can work in parallel.
 
-### Feature 1: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 1: Scoreboard
+- **Assigned to:** Person 2
+- **Description:** Display the current score prominently, track the all-time high score in localStorage, and show a "New High Score!" message when the player beats it.
+- **Files to modify/create:** `src/components/Scoreboard.jsx`
 
-### Feature 2: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 2: Difficulty Settings
+- **Assigned to:** Person 3
+- **Description:** Add a slider or button group to change mole speed (easy/medium/hard). Persist the chosen difficulty so it survives a page refresh.
+- **Files to modify/create:** `src/components/Settings.jsx`
 
-### Feature 3: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 3: Sound Effects
+- **Assigned to:** Person 4
+- **Description:** Play a whack sound on hit, a miss sound when clicking an empty hole, and round-start/round-end sounds.
+- **Files to modify/create:** `src/components/SoundEffects.jsx`, `src/data/sounds/`
 
-### Feature 4: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 4: Timer and Round Display
+- **Assigned to:** Person 5
+- **Description:** Replace the basic timer with a visual countdown bar, add a round number, and show a "Game Over" screen with stats (score, accuracy, time).
+- **Files to modify/create:** `src/components/Timer.jsx`
 
-### Feature 5: _[Name]_
-- **Assigned to:** _[Team member]_
-- **Description:** _[What it does]_
-- **Files to modify/create:** _[Be specific]_
+### Feature 5: Animations
+- **Assigned to:** Person 6
+- **Description:** Add CSS transitions for mole pop-up/pop-down, a shake effect on miss, and confetti when the player sets a new high score.
+- **Files to modify/create:** `src/components/Animations.jsx`
 
 ---
 
