@@ -7,24 +7,23 @@ import './App.css'
 function App() {
   return (
     <div>
+      {/* Sticky top navigation bar */}
       <Navbar />
-      <hr />
 
-      <table width="100%" border="1" cellPadding="10">
-        <tbody>
-          <tr valign="top">
-            <td width="20%">
-              <LeftSidebar />
-            </td>
-            <td width="50%">
-              <Feed />
-            </td>
-            <td width="30%">
-              <RightSidebar />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {/* Three-column layout: sidebar · feed · right rail */}
+      <main className="main-layout">
+        <aside className="left-sidebar">
+          <LeftSidebar />
+        </aside>
+
+        <section className="feed">
+          <Feed />
+        </section>
+
+        <aside className="right-sidebar">
+          <RightSidebar />
+        </aside>
+      </main>
     </div>
   )
 }
