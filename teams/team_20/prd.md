@@ -6,18 +6,17 @@
 
 ## Project Overview
 
-**Project Name:** Memory Card Match
+**Project Name:** _[Give your project a name]_
 
-**One-line Description:** A web game where players flip cards to find matching pairs.
+**One-line Description:** _[What does it do in one sentence?]_
 
-**Type:** Web App (React, frontend-only)
+**Type:** _[e.g., Chrome Extension, Web App, CLI Tool, etc.]_
 
 ---
 
 ## Guidelines
 
 ### Keep It Small!
-
 - Your MVP should be buildable in **10 minutes** by one person
 - Think "proof of concept" not "production ready"
 - If it sounds ambitious, make it simpler
@@ -27,27 +26,21 @@
 ### Good Project Ideas
 
 **Pong** — classic paddle-and-ball game
-
-- *Example features:* scoreboard, sound effects, difficulty/speed settings
+- _Example features:_ scoreboard, sound effects, difficulty/speed settings
 
 **Memory Card Match** — flip cards to find matching pairs
-
-- *Example features:* move counter, timer, win animation/confetti
+- _Example features:_ move counter, timer, win animation/confetti
 
 **Drawing Pad** — simple canvas you can sketch on
-
-- *Example features:* color picker, brush size slider, eraser tool
+- _Example features:_ color picker, brush size slider, eraser tool
 
 **Typing Speed Game** — type a passage and measure your words per minute
-
-- *Example features:* WPM display, accuracy tracker, difficulty levels
+- _Example features:_ WPM display, accuracy tracker, difficulty levels
 
 **Trivia Quiz** — multiple choice questions with score tracking
-
-- *Example features:* timer per question, category selector, results summary screen
+- _Example features:_ timer per question, category selector, results summary screen
 
 ### Bad Project Ideas (Too Big!)
-
 - Anything with a database -- tell cursor to avoid this
 - Anything requiring authentication
 - Anything with multiple pages/screens
@@ -61,14 +54,13 @@
 
 | Name | Task | Description |
 |------|------|-------------|
-| Maureen | Move Counter | Displays how many card flips the player has made |
-| Tina | Timer | Shows elapsed time since game start |
-| James | Win Animation | Confetti or celebration when all pairs are matched |
-| Pranathi | Restart Button | Button to shuffle and start a new game |
-| Ali | Sound Effects | Plays sounds when flipping cards and when pairs match |
+| _[Name 1]_ | _[Feature 1]_ | _[Brief description]_ |
+| _[Name 2]_ | _[Feature 2]_ | _[Brief description]_ |
+| _[Name 3]_ | _[Feature 3]_ | _[Brief description]_ |
+| _[Name 4]_ | _[Feature 4]_ | _[Brief description]_ |
+| _[Name 5]_ | _[Feature 5]_ | _[Brief description]_ |
 
 ### Task Guidelines
-
 - Each task should add something **visible** to the project
 - Tasks should be **independent** — no dependencies on other tasks
 - Think: new button, new section, new color scheme, new text, etc.
@@ -81,18 +73,10 @@
 > **One person** creates the foundation that everyone else builds on.
 
 **What the MVP includes:**
-- 4×4 grid of face-down cards (8 pairs)
-- Click to flip two cards at a time
-- Match logic: matching pairs stay face-up; non-matches flip back after a short delay
-- Simple "You win!" message when all pairs are matched
-- Basic styling (cards, grid layout)
+- _[Describe the minimal working version]_
 
 **What it does NOT include:**
-- Move counter
-- Timer
-- Win animation/confetti
-- Restart button
-- Sound effects
+- _[List features deliberately left out for team members to add]_
 
 ---
 
@@ -100,36 +84,35 @@
 
 > These are the features team members will add. Design them to be **independent** so people can work in parallel.
 
-### Feature 1: Move Counter
-- **Assigned to:** Maureen
-- **Description:** Display a count of how many moves (card flips) the player has made. Increment when two cards are flipped (whether they match or not).
-- **Files to modify/create:** `App.jsx` or main game component, `App.css` or styles for the counter display
+### Feature 1: _[Name]_
+- **Assigned to:** _[Team member]_
+- **Description:** _[What it does]_
+- **Files to modify/create:** _[Be specific]_
 
-### Feature 2: Timer
-- **Assigned to:** Tina
-- **Description:** Show elapsed time in seconds (and optionally minutes) since the game started. Pause or stop when the player wins.
-- **Files to modify/create:** `App.jsx` or main game component, `App.css` for timer display
+### Feature 2: _[Name]_
+- **Assigned to:** _[Team member]_
+- **Description:** _[What it does]_
+- **Files to modify/create:** _[Be specific]_
 
-### Feature 3: Win Animation
-- **Assigned to:** James
-- **Description:** When all pairs are matched, trigger a celebration (confetti, animation, or visual effect) instead of or in addition to the "You win!" message.
-- **Files to modify/create:** `App.jsx` or main game component, possibly a confetti library (e.g., `canvas-confetti`) or custom CSS animation
+### Feature 3: _[Name]_
+- **Assigned to:** _[Team member]_
+- **Description:** _[What it does]_
+- **Files to modify/create:** _[Be specific]_
 
-### Feature 4: Restart Button
-- **Assigned to:** Pranathi
-- **Description:** Add a "New Game" or "Restart" button that reshuffles the cards and resets the game state so the player can play again.
-- **Files to modify/create:** `App.jsx` or main game component, `App.css` for button styling
+### Feature 4: _[Name]_
+- **Assigned to:** _[Team member]_
+- **Description:** _[What it does]_
+- **Files to modify/create:** _[Be specific]_
 
-### Feature 5: Sound Effects
-- **Assigned to:** Ali
-- **Description:** Play a sound when a card is flipped and a different sound when a pair matches. Can use the Web Audio API or a simple audio element.
-- **Files to modify/create:** `App.jsx` or main game component, optional audio files or inline audio using Web Audio API
+### Feature 5: _[Name]_
+- **Assigned to:** _[Team member]_
+- **Description:** _[What it does]_
+- **Files to modify/create:** _[Be specific]_
 
 ---
 
 ## Success Criteria
 
-- MVP runs locally
-- Each team member has merged at least one PR
-- All features work together without breaking the app
-
+- [ ] MVP runs locally
+- [ ] Each team member has merged at least one PR
+- [ ] All features work together without breaking the app
