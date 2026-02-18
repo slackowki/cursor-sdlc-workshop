@@ -1,4 +1,4 @@
-# Git Cheatsheet
+# Tell Cursor What You Need — Git Quick Reference
 
 Everything in this workshop can be done by **telling the Cursor agent what you want**. You don't need to memorize commands — just describe what you need in plain English.
 

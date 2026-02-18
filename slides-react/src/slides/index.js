@@ -3,6 +3,7 @@ import Slide02Purpose from './Slide02Purpose.jsx'
 import Slide03Agenda from './Slide03Agenda.jsx'
 import Slide04SdlcOverview from './Slide04SdlcOverview.jsx'
 import Slide05PreWork from './Slide05PreWork.jsx'
+import SlideGitWorkflowDiagram from './SlideGitWorkflowDiagram.jsx'
 import Slide06Section1Intro from './Slide06Section1Intro.jsx'
 import Slide07Phase1Plan from './Slide07Phase1Plan.jsx'
 import Slide08Phase2Design from './Slide08Phase2Design.jsx'
@@ -29,6 +30,7 @@ export const slides = [
   { id: 3, component: Slide03Agenda },
   { id: 4, component: Slide04SdlcOverview },
   { id: 5, component: Slide05PreWork },
+  { id: 5.5, component: SlideGitWorkflowDiagram },
   { id: 6, component: Slide06Section1Intro },
   { id: 7, component: Slide07Phase1Plan },
   { id: 8, component: Slide08Phase2Design },

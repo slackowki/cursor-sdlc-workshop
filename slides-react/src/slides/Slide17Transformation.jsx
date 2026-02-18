@@ -20,7 +20,7 @@ const Slide17Transformation = () => (
           <p>Connections: 512 | Followers: 234</p>
           <hr />
           <p><strong>Feed</strong></p>
-          <p>Brian McCarthy - 1st<br /><em>New Hire | Father of 5</em></p>
+          <p>Brian McCarthy - 1st<br /><em>New Hire | Father of Many</em></p>
           <p>Thrilled to announce I'm starting a new chapter...</p>
           <p>[Like] [Comment] [Repost] [Send]</p>
           <div className="ugly-counter">Post impressions: 2,103</div>

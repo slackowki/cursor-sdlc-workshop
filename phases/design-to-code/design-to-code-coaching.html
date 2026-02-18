@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design-to-Code: Coaching Deck</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --blue: #268bd2;
+    --cyan: #2aa198;
+    --green: #859900;
+    --orange: #cb4b16;
+    --red: #dc322f;
+    --purple: #6c71c4;
+    --text: #657b83;
+    --text-light: #93a1a1;
+    --bg: #ffffff;
+    --card: #f7f7f7;
+    --border: rgba(101,123,131,0.2);
+  }
+  html, body { height: 100%; font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+
+  /* Slide engine */
+  .slide { display: none; width: 100%; height: 100%; flex-direction: column; justify-content: center; animation: fadeIn 0.3s ease; padding: 2.5vh 3vw; }
+  .slide.active { display: flex; }
+  .slide-container { height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; padding: 1vh 2vw; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Nav */
+  .nav { position: fixed; top: 16px; right: 16px; display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.75rem; background: rgba(255,255,255,0.92); border-radius: 100px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.06); z-index: 100; }
+  .nav-btn { width: 28px; height: 28px; border: 1px solid var(--blue); background: #fff; color: var(--blue); border-radius: 50%; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .nav-btn:hover { background: var(--blue); color: #fff; }
+  .nav-btn:disabled { background: #e6eaec; border-color: #e6eaec; color: var(--text-light); cursor: not-allowed; }
+  .counter { font-size: 0.8rem; color: var(--text-light); min-width: 46px; text-align: center; }
+
+  /* Typography */
+  h1 { font-size: 4.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h2 { font-size: 3rem; font-weight: 600; margin-bottom: 0.75rem; }
+  h3 { font-size: 1.6rem; font-weight: 600; color: var(--blue); margin-bottom: 0.5rem; }
+  .subtitle { font-size: 1.5rem; color: var(--text-light); margin-bottom: 1.75rem; }
+  .highlight { color: var(--blue); font-weight: 600; }
+  .highlight-red { color: var(--red); font-weight: 600; }
+  .highlight-green { color: var(--green); font-weight: 600; }
+  .highlight-orange { color: var(--orange); font-weight: 600; }
+  .keyword { background: rgba(38,139,210,0.12); color: var(--blue); font-weight: 600; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.95em; }
+
+  /* Cards & layout */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
+  .card p, .card li { font-size: 1.05rem !important; }
+  .card h3 { font-size: 1.35rem !important; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.75rem; }
+
+  /* Flow arrows */
+  .flow { display: flex; align-items: center; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin: 1.75rem 0; }
+  .flow-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; text-align: center; min-width: 130px; max-width: 220px; flex: 1; }
+  .flow-box strong { display: block; font-size: 1.15rem; }
+  .flow-box span { font-size: 0.9rem; color: var(--text-light); }
+  .flow-box .flow-thumb { width: 100%; height: 110px; object-fit: cover; object-position: top left; border-radius: 6px; margin-top: 0.6rem; border: 1px solid var(--border); }
+  .flow-arrow { font-size: 2rem; color: var(--text-light); }
+  .flow-gap { background: rgba(220,50,47,0.08); border: 2px dashed var(--red); border-radius: 12px; padding: 1rem 1.25rem; text-align: center; max-width: 220px; flex: 1; }
+  .flow-gap strong { color: var(--red); font-size: 1.15rem; }
+  .flow-gap span { font-size: 0.9rem; color: var(--red); }
+  .flow-gap .flow-thumb { width: 100%; height: 110px; object-fit: cover; object-position: top left; border-radius: 6px; margin-top: 0.6rem; border: 1px solid rgba(220,50,47,0.2); opacity: 0.8; }
+
+  /* Flow branch (either/or fork) */
+  .flow-branch { display: flex; flex-direction: column; gap: 0; flex: 1; max-width: 260px; position: relative; align-self: center; }
+  .flow-branch-divider { text-align: center; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); padding: 0.15rem 0; position: relative; z-index: 1; }
+  .flow-branch-divider span { background: var(--bg); padding: 0 0.5rem; position: relative; z-index: 1; }
+  .flow-branch-divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); z-index: 0; }
+  .flow-branch-item { border-radius: 10px; padding: 0.6rem 0.85rem; text-align: left; }
+  .flow-branch-item strong { display: block; font-size: 0.9rem; margin-bottom: 0.15rem; }
+  .flow-branch-item span { font-size: 0.8rem; line-height: 1.4; }
+  .flow-branch-item.without { background: rgba(220,50,47,0.06); border: 1.5px solid rgba(220,50,47,0.25); }
+  .flow-branch-item.without strong { color: var(--red); }
+  .flow-branch-item.without span { color: var(--text-light); }
+  .flow-branch-item.with { background: rgba(42,161,152,0.06); border: 1.5px solid rgba(42,161,152,0.25); }
+  .flow-branch-item.with strong { color: var(--cyan); }
+  .flow-branch-item.with span { color: var(--text-light); }
+  .flow-branch-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.15rem; }
+  .flow-branch-label.red { color: var(--red); }
+  .flow-branch-label.green { color: var(--cyan); }
+
+  /* Branch focus states */
+  .flow-branch .flow-branch-item { transition: opacity 0.4s ease, transform 0.4s ease; }
+  .flow-branch.branch-focus-top .flow-branch-item.without { opacity: 1; transform: scale(1.02); }
+  .flow-branch.branch-focus-top .flow-branch-item.with { opacity: 0.35; transform: scale(0.98); }
+  .flow-branch.branch-focus-bottom .flow-branch-item.without { opacity: 0.35; transform: scale(0.98); }
+  .flow-branch.branch-focus-bottom .flow-branch-item.with { opacity: 1; transform: scale(1.02); }
+
+  /* Analogy visual */
+  .analogy-panel { display: flex; flex-direction: column; gap: 0.75rem; transition: opacity 0.4s ease, transform 0.4s ease; }
+  .analogy-manual { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; }
+  .analogy-manual .icon { font-size: 3rem; margin-bottom: 0.6rem; }
+  .analogy-manual h4 { font-size: 1.35rem; margin-bottom: 0.4rem; }
+  .analogy-manual p { font-size: 1.05rem; color: var(--text-light); line-height: 1.6; }
+
+  /* Analogy focus states */
+  .analogy-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.25rem; align-items: center; }
+  .analogy-center-arrow { font-size: 2.5rem; color: var(--text-light); opacity: 0.3; transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; }
+  .focus-left .analogy-panel.panel-left { opacity: 1; transform: scale(1.01); }
+  .focus-left .analogy-panel.panel-right { opacity: 0.4; transform: scale(0.98); }
+  .focus-left .analogy-center-arrow { opacity: 0.2; }
+  .focus-right .analogy-panel.panel-left { opacity: 0.4; transform: scale(0.98); }
+  .focus-right .analogy-panel.panel-right { opacity: 1; transform: scale(1.01); }
+  .focus-right .analogy-center-arrow { opacity: 1; color: var(--cyan); }
+
+  /* Approach cards */
+  .approach { border-radius: 12px; padding: 1.75rem; display: flex; flex-direction: column; gap: 0.65rem; }
+  .approach.bad { background: rgba(220,50,47,0.06); border: 1px solid rgba(220,50,47,0.2); }
+  .approach.mid { background: rgba(181,137,0,0.06); border: 1px solid rgba(181,137,0,0.2); }
+  .approach.good { background: rgba(42,161,152,0.06); border: 1px solid rgba(42,161,152,0.2); }
+  .approach-number { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; }
+  .approach h4 { font-size: 1.35rem; font-weight: 600; }
+  .approach ul { padding-left: 1.1rem; font-size: 1.05rem; color: var(--text-light); line-height: 1.7; }
+  .approach ul li { margin-bottom: 0.3rem; }
+  .approach .verdict { font-size: 1rem; font-weight: 600; margin-top: 0.4rem; padding: 0.5rem 0.75rem; border-radius: 6px; text-align: center; }
+  .approach.bad .verdict { background: rgba(220,50,47,0.1); color: var(--red); }
+  .approach.mid .verdict { background: rgba(181,137,0,0.1); color: #b58900; }
+  .approach.good .verdict { background: rgba(42,161,152,0.1); color: var(--cyan); }
+
+
+  /* Emphasis box */
+  .emphasis { background: linear-gradient(135deg, rgba(38,139,210,0.1), rgba(38,139,210,0.03)); border: 1px solid rgba(38,139,210,0.25); border-radius: 10px; padding: 1.1rem 1.5rem; margin-top: 1.25rem; font-size: 1.1rem; line-height: 1.6; }
+
+  /* Workflow steps */
+  .workflow-row { display: flex; align-items: stretch; gap: 0.75rem; margin: 0.75rem 0; }
+  .wf-step { flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .wf-step.active-step { border-color: var(--cyan); border-width: 2px; background: rgba(42,161,152,0.04); }
+  .wf-step .step-num { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); }
+  .wf-step h4 { font-size: 0.95rem; font-weight: 600; }
+  .wf-step p { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+  .wf-arrow { display: flex; align-items: center; font-size: 1.3rem; color: var(--text-light); }
+
+  /* Customer quote */
+  .customer-quote { background: linear-gradient(135deg, rgba(108,113,196,0.08), rgba(108,113,196,0.02)); border: 1px solid rgba(108,113,196,0.2); border-radius: 12px; padding: 1.5rem 2rem; font-style: italic; font-size: 1.15rem; line-height: 1.65; color: var(--text); margin: 1.25rem 0; }
+  .customer-quote .attribution { font-style: normal; font-size: 1rem; color: var(--purple); font-weight: 600; margin-top: 0.6rem; }
+
+  /* Tag */
+  .tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 100px; font-size: 0.65rem; font-weight: 600; }
+  .tag.red { background: rgba(220,50,47,0.1); color: var(--red); }
+  .tag.yellow { background: rgba(181,137,0,0.1); color: #b58900; }
+  .tag.green { background: rgba(42,161,152,0.1); color: var(--cyan); }
+
+  /* Visual progression timeline */
+  .progression { display: flex; align-items: flex-start; gap: 0.4rem; margin-top: 1rem; }
+  .prog-step { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+  .prog-arrow { display: flex; align-items: center; font-size: 1.8rem; color: var(--text-light); opacity: 0.5; padding-top: 2.5rem; }
+
+  /* Mini app preview */
+  .prog-app { border: 2px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; transition: all 0.3s; }
+  .prog-app.final { border-color: var(--cyan); box-shadow: 0 4px 16px rgba(42,161,152,0.15); }
+  .app-bar { background: #e6eaec; padding: 0.4rem 0.7rem; font-size: 0.75rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+  .app-body { padding: 0.6rem; display: flex; flex-direction: column; gap: 0.35rem; min-height: 95px; }
+  .app-block { height: 8px; border-radius: 3px; }
+  .app-block.gray { background: #ddd; }
+  .app-block.blue { background: linear-gradient(90deg, rgba(38,139,210,0.3), rgba(42,161,152,0.2)); }
+
+  .app-new-feature { margin-top: 0.3rem; padding: 0.35rem 0.6rem; border: 1px dashed var(--blue); border-radius: 6px; font-size: 0.7rem; font-weight: 600; color: var(--blue); display: flex; align-items: center; justify-content: space-between; background: rgba(38,139,210,0.04); }
+  .app-new-feature.wired { border-style: solid; border-color: var(--green); color: var(--green); background: rgba(133,153,0,0.04); }
+  .app-new-feature.done { border-style: solid; border-color: var(--cyan); color: var(--cyan); background: rgba(42,161,152,0.06); }
+  .wire-badge { font-size: 0.45rem; padding: 0.1rem 0.35rem; border-radius: 3px; background: rgba(133,153,0,0.15); color: var(--green); font-weight: 700; letter-spacing: 0.5px; }
+  .wire-badge.done-badge { background: rgba(42,161,152,0.15); color: var(--cyan); }
+
+  /* SDLC overview flow */
+  .sdlc-flow { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin: 1.5rem 0 1rem; }
+  .sdlc-step { display: flex; flex-direction: column; align-items: center; padding: 1.25rem 1.5rem; background: var(--card); border: 2px solid var(--border); border-radius: 12px; min-width: 130px; transition: all 0.3s; position: relative; }
+  .sdlc-step .sdlc-num { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); margin-bottom: 0.3rem; }
+  .sdlc-step .sdlc-icon { font-size: 2.2rem; margin-bottom: 0.35rem; }
+  .sdlc-step .sdlc-name { font-size: 1.15rem; font-weight: 600; color: var(--text); }
+  .sdlc-step .sdlc-tools { font-size: 0.8rem; color: var(--text-light); text-align: left; margin-top: 0.3rem; line-height: 1.6; list-style: none; padding: 0; }
+  .sdlc-step .sdlc-tools li::before { content: "· "; font-weight: 700; color: var(--blue); opacity: 0.5; }
+  .sdlc-connector { display: flex; align-items: center; font-size: 1.8rem; color: var(--text-light); opacity: 0.4; }
+
+  /* Parallel group (Plan + Design stacked) */
+  .sdlc-parallel { display: flex; flex-direction: column; gap: 0.5rem; align-items: stretch; }
+  .sdlc-parallel .sdlc-step { min-width: 130px; }
+  .sdlc-parallel-label { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); text-align: center; margin-bottom: 0.15rem; }
+
+  /* Highlighted SDLC steps */
+  .sdlc-step.highlighted { border-color: var(--blue); border-width: 3px; background: rgba(38,139,210,0.06); box-shadow: 0 4px 20px rgba(38,139,210,0.15); }
+  .sdlc-step.highlighted .sdlc-name { color: var(--blue); }
+  .sdlc-step.highlighted-primary { border-color: var(--blue); border-width: 3px; background: rgba(38,139,210,0.08); box-shadow: 0 4px 24px rgba(38,139,210,0.2); transform: scale(1.03); }
+  .sdlc-step.highlighted-primary .sdlc-name { color: var(--blue); font-weight: 700; }
+  .sdlc-step.dimmed { opacity: 0.35; }
+  .sdlc-connector.highlighted { opacity: 1; color: var(--blue); font-weight: 700; }
+
+  /* Focus bracket */
+  .sdlc-focus-bracket { display: flex; flex-direction: column; align-items: center; margin-top: 0.75rem; }
+  .sdlc-focus-line { width: 380px; height: 3px; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 2px; }
+  .sdlc-focus-label { margin-top: 0.5rem; font-size: 1.1rem; font-weight: 700; color: var(--blue); letter-spacing: 0.5px; }
+
+  /* Progression labels */
+  .prog-label { padding: 0.35rem 0; }
+  .prog-who { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); margin-bottom: 0.2rem; }
+  .prog-who.designer { color: var(--blue); }
+  .prog-who.engineer { color: var(--green); }
+  .prog-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .prog-desc { font-size: 0.9rem; color: var(--text-light); line-height: 1.5; margin-top: 0.2rem; }
+  .prog-desc strong { color: var(--text); }
+  .prog-merge { margin-top: 0.3rem; display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 100px; background: rgba(38,139,210,0.1); color: var(--blue); }
+</style>
+</head>
+<body>
+
+<div class="slide-container">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: Title -->
+<!-- ============================================================ -->
+<div class="slide active" data-slide="1" data-notes="This is a coaching deck for the design-to-code use case. We'll walk through the problem, the analogy, and how Cursor solves it — all tied to real customer conversations.">
+  <div style="margin-bottom: 0.5rem;">
+    <h1 style="display: inline;">Design-to-Code</h1>
+    <span style="font-size: 1.5rem; color: var(--text-light); font-weight: 400; margin-left: 0.75rem; opacity: 0.7;">+ Planning</span>
+  </div>
+  <div class="subtitle">How Cursor bridges the gap between planning, design, and production code</div>
+  <div class="grid-3" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3 style="font-size: 1.3rem;">The Problem</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light);">Designers create beautiful mockups. Getting those into real, compatible code is where everything breaks down. Planning the work compounds the challenge.</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size: 1.3rem;">The Opportunity</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light);">Every enterprise has this pain. Design systems, framework compliance, back-and-forth handoffs — Cursor addresses all of it, starting from planning.</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size: 1.3rem;">What We'll Cover</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light);">How planning and design feed into code, why the current handoff is broken, and how Cursor changes the workflow for both designers and engineers.</p>
+    </div>
+  </div>
+  <div class="emphasis" style="margin-top: 1.25rem;">
+    <strong>Based on real customer conversations</strong> — including Sigma's design ops team (Zen design system) and Intuit's enterprise design org navigating Cursor adoption for rapid ideation.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: SDLC Overview — Where Design-to-Code Lives -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="2" data-notes="SCRIPT: Before diving in, let's zoom out. This is the full software development lifecycle. Every company goes through these stages. Notice that Planning and Design happen in parallel — they feed into each other and both inform what gets built. Today we'll touch on both, but we're really zooming into the handoff from Design into Develop — that's the 'design-to-code' gap. When it breaks down, every downstream stage suffers.">
+  <h2>Where Design-to-Code Lives</h2>
+  <div class="subtitle">The full software development lifecycle — and the piece we're zooming into</div>
+
+  <div class="sdlc-flow">
+    <!-- Plan + Design stacked in parallel -->
+    <div class="sdlc-parallel">
+      <div class="sdlc-step highlighted">
+        <div class="sdlc-num">01</div>
+        <div class="sdlc-icon">📋</div>
+        <div class="sdlc-name">Plan</div>
+        <ul class="sdlc-tools"><li>Notion</li><li>Jira</li><li>Linear</li><li>GitHub Issues</li></ul>
+      </div>
+      <div class="sdlc-step highlighted-primary">
+        <div class="sdlc-num">02</div>
+        <div class="sdlc-icon">🎨</div>
+        <div class="sdlc-name">Design</div>
+        <ul class="sdlc-tools"><li>Figma</li><li>Adobe XD</li><li>Storybook</li></ul>
+      </div>
+    </div>
+    <div class="sdlc-connector highlighted">→</div>
+
+    <div class="sdlc-step highlighted-primary">
+      <div class="sdlc-num">03</div>
+      <div class="sdlc-icon">💻</div>
+      <div class="sdlc-name">Develop</div>
+      <ul class="sdlc-tools"><li>Cursor</li><li>VS Code</li><li>GitHub</li></ul>
+    </div>
+    <div class="sdlc-connector">→</div>
+
+    <div class="sdlc-step dimmed">
+      <div class="sdlc-num">04</div>
+      <div class="sdlc-icon">🧪</div>
+      <div class="sdlc-name">Test</div>
+      <ul class="sdlc-tools"><li>CI/CD</li><li>Selenium</li><li>GitHub Actions</li></ul>
+    </div>
+    <div class="sdlc-connector">→</div>
+
+    <div class="sdlc-step dimmed">
+      <div class="sdlc-num">05</div>
+      <div class="sdlc-icon">👀</div>
+      <div class="sdlc-name">Review</div>
+      <ul class="sdlc-tools"><li>GitHub PRs</li><li>BugBot</li></ul>
+    </div>
+    <div class="sdlc-connector">→</div>
+
+    <div class="sdlc-step dimmed">
+      <div class="sdlc-num">06</div>
+      <div class="sdlc-icon">🚀</div>
+      <div class="sdlc-name">Deploy</div>
+      <ul class="sdlc-tools"><li>AWS</li><li>Vercel</li><li>Docker</li></ul>
+    </div>
+  </div>
+
+  <div class="sdlc-focus-bracket">
+    <div class="sdlc-focus-line"></div>
+    <div class="sdlc-focus-label">Today's Focus: Design → Code Handoff</div>
+  </div>
+
+  <div class="emphasis" style="margin-top: 1rem;">
+    <strong>We'll touch on both Planning and Design</strong> — they happen in parallel and inform each other. But our deep dive is the <span class="highlight">Design → Develop</span> handoff: that's where weeks of rework hide, and where Cursor changes the game.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: The Problem — What design-to-code looks like today -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="3" data-substeps="2" data-notes="SCRIPT: Walk through the flow. Point out the red gap — that's where weeks of back-and-forth happen. First click focuses on Without Cursor. Second click shifts to With Cursor.">
+  <h2>What Design-to-Code Looks Like Today</h2>
+  <div class="subtitle">The handoff gap is where weeks of back-and-forth happen</div>
+
+  <div class="flow">
+    <div class="flow-box">
+      <strong>Designer</strong>
+      <span>Creates mockup in Figma</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <strong>Design System</strong>
+      <span>Buttons, dropdowns, cards...</span>
+      <img class="flow-thumb" src="assets/design-system-preview.png" alt="Design system components">
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <strong>Pixel-Perfect Mockup</strong>
+      <span>Looks exactly right</span>
+      <img class="flow-thumb" src="assets/pixel-perfect-mockup.png" alt="Responsive mockups">
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-gap">
+      <strong>THE GAP</strong>
+      <span>Handoff, misinterpretation, rework</span>
+      <img class="flow-thumb" src="assets/figma-variables-api.png" alt="Complex API translation layer">
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-branch branch-focus-top" id="flow-branch">
+      <div class="flow-branch-item without">
+        <div class="flow-branch-label red">Without Cursor</div>
+        <strong>Engineer rebuilds from scratch</strong>
+        <span>Manually recreates the design — or works from a screenshot. Weeks of back-and-forth.</span>
+      </div>
+      <div class="flow-branch-divider"><span>OR</span></div>
+      <div class="flow-branch-item with">
+        <div class="flow-branch-label green">With Cursor</div>
+        <strong>Design system → codebase-compatible code</strong>
+        <span>Mockups get translated directly. Designer iterates, engineer makes final tweaks (database, APIs, etc).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="customer-quote">
+    "We started by creating a sandbox for designers to play with... uploading screen captures to Cursor, asking it to recreate them. We got first results — OK-ish, but not so much. The output is not always design system compliant and tends to add extra CSS code, custom code. And this is an issue for us."
+    <div class="attribution">— Caroline, Lead Design Ops at Sigma (Zen design system)</div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: The Cursor Workflow — Visual progression -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="4" data-notes="SCRIPT: This is the 'with Cursor' path in action. Walk left to right. The key point: designer and engineer work in PARALLEL on the SAME codebase. Before Cursor, the designer was in a silo — handing off mockups. Now they're iterating on real code while the engineer wires up the backend. The final PR is a working version, not a mockup that needs to be rebuilt.">
+  <h2>The Cursor Workflow</h2>
+  <div class="subtitle">Designer and engineer work in parallel — on the same codebase, not in silos</div>
+
+  <!-- Visual progression timeline -->
+  <div class="progression">
+
+    <!-- Step 1: Base MVP -->
+    <div class="prog-step">
+      <div class="prog-app">
+        <div class="app-bar">LinkedOut</div>
+        <div class="app-body">
+          <div class="app-block gray"></div>
+          <div class="app-block gray" style="width: 60%;"></div>
+          <div class="app-block gray" style="width: 80%;"></div>
+        </div>
+      </div>
+      <div class="prog-label">
+        <div class="prog-who">Starting point</div>
+        <div class="prog-title">Base MVP</div>
+        <div class="prog-desc">The existing codebase. Both designer and engineer start from the <strong>same source of truth.</strong></div>
+      </div>
+    </div>
+
+    <div class="prog-arrow">→</div>
+
+    <!-- Step 2: Designer adds UI -->
+    <div class="prog-step">
+      <div class="prog-app">
+        <div class="app-bar" style="background: linear-gradient(90deg, #268bd2, #2aa198);">LinkedOut</div>
+        <div class="app-body">
+          <div class="app-block blue"></div>
+          <div class="app-block blue" style="width: 60%; height: 18px; border-radius: 8px;"></div>
+          <div class="app-block blue" style="width: 80%;"></div>
+          <div class="app-new-feature">
+            <span>New Search Bar</span>
+          </div>
+        </div>
+      </div>
+      <div class="prog-label">
+        <div class="prog-who designer">Designer iterates on UI</div>
+        <div class="prog-title">Adds & refines the feature</div>
+        <div class="prog-desc">Pulls design via Figma MCP. Iterates on interactions, styling, states — <strong>in real code, not a silo.</strong></div>
+        <div class="prog-merge">Merges PR</div>
+      </div>
+    </div>
+
+    <div class="prog-arrow">→</div>
+
+    <!-- Step 3: Engineer connects backend (in parallel) -->
+    <div class="prog-step">
+      <div class="prog-app">
+        <div class="app-bar" style="background: linear-gradient(90deg, #268bd2, #2aa198);">LinkedOut</div>
+        <div class="app-body">
+          <div class="app-block blue"></div>
+          <div class="app-block blue" style="width: 60%; height: 18px; border-radius: 8px;"></div>
+          <div class="app-block blue" style="width: 80%;"></div>
+          <div class="app-new-feature wired">
+            <span>Search Bar</span>
+            <span class="wire-badge">LIVE DATA</span>
+          </div>
+        </div>
+      </div>
+      <div class="prog-label">
+        <div class="prog-who engineer">Engineer connects backend</div>
+        <div class="prog-title">Wires up data & APIs</div>
+        <div class="prog-desc">Works from the <strong>same codebase</strong> the designer committed to. Connects database, auth, APIs. <strong>Doesn't touch the design.</strong></div>
+        <div class="prog-merge">Merges PR</div>
+      </div>
+    </div>
+
+    <div class="prog-arrow">→</div>
+
+    <!-- Step 4: Shipped — collaborative result -->
+    <div class="prog-step">
+      <div class="prog-app final">
+        <div class="app-bar" style="background: linear-gradient(90deg, #268bd2, #2aa198);">LinkedOut</div>
+        <div class="app-body">
+          <div class="app-block blue"></div>
+          <div class="app-block blue" style="width: 60%; height: 18px; border-radius: 8px;"></div>
+          <div class="app-block blue" style="width: 80%;"></div>
+          <div class="app-new-feature done">
+            <span>Search Bar</span>
+            <span class="wire-badge done-badge">SHIPPED</span>
+          </div>
+        </div>
+      </div>
+      <div class="prog-label">
+        <div class="prog-who designer">Final result</div>
+        <div class="prog-title">Working version, not a mockup</div>
+        <div class="prog-desc">The final PR is <strong>collaborative work that runs</strong> — not a mockup that gets handed off between designer and engineer many times.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Swimlane key -->
+  <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 0.75rem; font-size: 1rem; color: var(--text-light);">
+    <div><span style="display: inline-block; width: 10px; height: 10px; background: var(--blue); border-radius: 50%; margin-right: 4px;"></span> Designer: <strong style="color: var(--text);">Iterates on UI interactions</strong></div>
+    <div><span style="display: inline-block; width: 10px; height: 10px; background: var(--green); border-radius: 50%; margin-right: 4px;"></span> Engineer: <strong style="color: var(--text);">Connects data & backend</strong></div>
+  </div>
+
+  <div class="emphasis" style="margin-top: 0.6rem;">
+    <strong>The shift:</strong> Before Cursor, the designer was in a silo — handing off mockups that got rebuilt from scratch. Now they work <em>in parallel</em>, on the <em>same codebase</em>. The result is a working product, not another handoff.
+  </div>
+
+  <div class="emphasis" style="margin-top: 0.5rem; border-color: rgba(203,75,22,0.3); background: linear-gradient(135deg, rgba(203,75,22,0.08), rgba(203,75,22,0.02));">
+    <strong style="color: var(--orange);">Ask in discovery:</strong> "How many rounds of back-and-forth does it typically take between design and engineering before a feature ships?"
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE: Why the code under the hood matters — The Analogy -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="5" data-substeps="2" data-notes="SCRIPT: This is the most important slide. Pause here. First click: explain the Without Cursor side — the IKEA analogy. Second click: now show the With Cursor side — same manual, translated into your language. Let both land before advancing.">
+  <h2>Why "Looks Right" Isn't Enough</h2>
+  <div class="subtitle">The code under the hood matters just as much as the pixels on screen</div>
+
+  <div class="analogy-grid focus-left" id="analogy-grid">
+    <div class="analogy-panel panel-left">
+      <div class="analogy-manual" style="border-color: var(--red); border-width: 2px;">
+        <div class="icon">📋</div>
+        <h4 style="color: var(--red);">Without Cursor</h4>
+        <p>It's like getting an IKEA instruction manual with <strong>perfect pictures</strong> of what to build — but all the words are in a <strong>language you don't speak</strong>.</p>
+        <p style="margin-top: 0.5rem;">You can <em>see</em> what the end result should look like. But you can't actually follow the steps. The parts don't match what's in your box.</p>
+      </div>
+      <div style="text-align: center; font-size: 1rem; color: var(--text-light);">
+        AI generates code that <strong style="color: var(--red);">looks right</strong> but uses the wrong components, the wrong structure, the wrong "language" for your codebase.
+      </div>
+    </div>
+
+    <div class="analogy-center-arrow">→</div>
+
+    <div class="analogy-panel panel-right">
+      <div class="analogy-manual" style="border-color: var(--cyan); border-width: 2px;">
+        <div class="icon">📖</div>
+        <h4 style="color: var(--cyan);">With Cursor + Figma MCP + Browser Support</h4>
+        <p>Same instruction manual, same pictures — but now it's <strong>translated into your language</strong>, referencing the specific <strong>tools and parts you already have</strong>.</p>
+        <p style="margin-top: 0.5rem;">Step 3 says "use the Allen wrench from bag B" — and bag B is actually in your box. Everything fits. And with <strong>browser support</strong>, you can see and edit the result right in the browser.</p>
+      </div>
+      <div style="text-align: center; font-size: 1rem; color: var(--text-light);">
+        Cursor knows your codebase, your components, your framework. The code it generates <strong style="color: var(--cyan);">actually fits</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="emphasis">
+    <strong>For Sigma:</strong> Their "language" is Vue + the Zen design system. When ChatGPT generates React code with custom CSS, it's a beautiful picture with instructions in the wrong language. Cursor generates Vue code using actual Zen components.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE: Three approaches compared -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="6" data-notes="SCRIPT: Walk through each column. Traditional = slow, expensive, lots of rework. AI without context = fast but incompatible (the IKEA problem). Cursor = fast AND compatible because it reads the codebase. This is the 'aha' moment. Pause on approach 3 and let it land.">
+  <h2>Three Ways Design Becomes Code</h2>
+  <div class="subtitle">Same mockup, very different outcomes</div>
+
+  <div class="grid-3">
+    <div class="approach bad">
+      <div class="approach-number">Approach 1</div>
+      <h4>Traditional Handoff</h4>
+      <ul>
+        <li>Designer delivers a Figma file</li>
+        <li>Engineer rebuilds from scratch</li>
+        <li>Weeks of back-and-forth</li>
+        <li>"That's not how I designed it"</li>
+        <li>"That's not how our components work"</li>
+      </ul>
+      <div class="verdict">Slow, expensive, frustrating</div>
+    </div>
+
+    <div class="approach mid">
+      <div class="approach-number">Approach 2</div>
+      <h4>AI Without Context</h4>
+      <ul>
+        <li>Designer pastes a screenshot into ChatGPT</li>
+        <li>Gets code that <em>looks right</em></li>
+        <li>But it's React when you need Vue</li>
+        <li>Custom CSS instead of your design system</li>
+        <li>Can't be merged into the real codebase</li>
+      </ul>
+      <div class="verdict">Fast but incompatible <span class="tag yellow">The IKEA problem</span></div>
+    </div>
+
+    <div class="approach good">
+      <div class="approach-number">Approach 3</div>
+      <h4>Cursor + Figma MCP</h4>
+      <ul>
+        <li>Figma MCP pulls the design directly</li>
+        <li>Cursor reads your actual codebase</li>
+        <li>Generates code in <em>your</em> framework</li>
+        <li>Uses <em>your</em> design system components</li>
+        <li>Output is mergeable, reviewable, real</li>
+      </ul>
+      <div class="verdict">Fast AND compatible <span class="tag green">Production-ready</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: How Cursor solves it (technical but accessible) -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="7" data-notes="SCRIPT: This is where you tie it all together. Cursor has three things generic AI doesn't: (1) it reads the actual codebase, (2) it connects to Figma via MCP, (3) it generates code that matches the framework AND design system. Show a quick demo if time allows — pull a Figma frame, show the generated code uses Zen components not custom CSS. If doing the live demo, this is where to do it.">
+  <h2>How Cursor Solves This</h2>
+  <div class="subtitle">Three things generic AI doesn't have</div>
+
+  <div class="grid-3">
+    <div class="card" style="border-left: 4px solid var(--blue);">
+      <h3 style="font-size: 1.3rem;">1. Codebase Awareness</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.5;">
+        Cursor indexes your entire project — framework, components, folder structure, patterns. When it generates code, it follows <em>your</em> conventions, not generic ones.
+      </p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--purple);">
+      <h3 style="font-size: 1.3rem;">2. Figma MCP Connection</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.5;">
+        The Figma MCP reads design metadata — not just pixels. It understands layers, component names, spacing, and variables. The design carries intent, not just appearance.
+      </p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--cyan);">
+      <h3 style="font-size: 1.3rem;">3. Design System Compliance</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.5;">
+        Because Cursor sees both the Figma design AND the code, it maps Figma components to their code equivalents. Zen button in Figma → Zen button in code. Not custom CSS.
+      </p>
+    </div>
+  </div>
+
+  <div class="customer-quote">
+    "You can specify cursor rules which make sure it adheres to your design system. You can point at specific libraries within your internal GitHub to make sure it always downloads those components. But it's that configuration part that doesn't come pre-packaged — that's hard to convince designers to do and convince them that the upfront work will pay off."
+    <div class="attribution">— Intuit, Enterprise Design Org (<a href="https://us-4796.app.gong.io/call?id=2945794308886729676" style="color: var(--purple);">Gong recording</a>)</div>
+  </div>
+
+  <div class="emphasis" style="margin-top: 0.5rem;">
+    <strong>The opportunity:</strong> If the design system configuration in Cursor could be as invisible as drag-and-drop in Figma, adoption accelerates. Cursor rules + repo-level component libraries are the mechanism. The question is how to make setup frictionless for non-engineers.
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: Discovery questions + coaching -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="8" data-notes="SCRIPT: These are the questions you should be asking in EVERY discovery call where design-to-code is relevant. The coaching point: when Caroline said 'we want to know if you have examples of companies who succeeded' — that's the opening. Instead of just offering a workshop, position the value: 'Here's what companies who've solved this did differently.' Lead with the outcome, not the product.">
+  <h2>Discovery Questions to Ask</h2>
+  <div class="subtitle">Use these in every conversation where design-to-code comes up</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="font-size: 1.3rem;">Understanding Their <span style="border-bottom: 3px solid var(--blue); padding-bottom: 0.15rem;">Stack</span></h3>
+      <ul style="font-size: 1.1rem; color: var(--text-light); line-height: 1.8; padding-left: 1.1rem; margin-top: 0.75rem;">
+        <li>Do you have a <span class="keyword">design system</span> or <span class="keyword">component library</span>?</li>
+        <li>How do you turn designs into <span class="keyword">production code</span> today?</li>
+        <li>How do you make sure the UI stays <span class="keyword">aligned to the design system</span>?</li>
+        <li>What <span class="keyword">design tools</span> does your team use? (Figma, Adobe XD, Sketch?)</li>
+        <li>What <span class="keyword">frontend framework</span> are you on? (React, Vue, Angular, etc.)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size: 1.3rem;">Understanding Their <span style="border-bottom: 3px solid var(--red); padding-bottom: 0.15rem;">Pain</span></h3>
+      <ul style="font-size: 1.1rem; color: var(--text-light); line-height: 1.8; padding-left: 1.1rem; margin-top: 0.75rem;">
+        <li>How does the <span class="keyword">design-to-code handoff</span> work today?</li>
+        <li>How much <span class="keyword">rework</span> happens after handoff?</li>
+        <li>Have any designers tried using AI to <span class="keyword">generate code</span>?</li>
+        <li>Was the output <span class="keyword">design system compliant</span>?</li>
+        <li>How many rounds of <span class="keyword">back-and-forth</span> before a feature ships?</li>
+        <li>Do your designers <span class="keyword">push PRs</span> today?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: Recap -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="9" data-notes="SCRIPT: Quick recap. The three key things they should remember: (1) Looks right ≠ works right — the IKEA analogy. (2) Cursor + Figma MCP = code that's compatible with the actual codebase. (3) The designer and engineer work in parallel, not in sequence. That's the story to tell.">
+  <h2>The Story to Tell</h2>
+
+  <div class="grid-3" style="margin-top: 1.5rem;">
+    <div class="card" style="border-top: 4px solid var(--red);">
+      <h3 style="font-size: 1.3rem;">1. "Looks right" ≠ works right</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.5;">
+        AI can generate beautiful UI from a screenshot. But if the code doesn't match your framework and design system, it's an instruction manual in the wrong language. Useless for production.
+      </p>
+    </div>
+    <div class="card" style="border-top: 4px solid var(--blue);">
+      <h3 style="font-size: 1.3rem;">2. Cursor converts your design system to your codebase's language</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.5;">
+        Figma MCP + codebase awareness means the generated code uses the right framework, the right components, the right patterns. It's not a prototype — it's a PR.
+      </p>
+    </div>
+    <div class="card" style="border-top: 4px solid var(--cyan);">
+      <h3 style="font-size: 1.3rem;">3. Parallel, not sequential</h3>
+      <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.5;">
+        Designers push UI code. Engineers fork it and connect data. They merge. The handoff gap disappears. What took weeks takes days.
+      </p>
+    </div>
+  </div>
+
+  <div class="emphasis" style="margin-top: 1.5rem; text-align: center; font-size: 1.25rem;">
+    <strong>The one-liner:</strong> "Cursor doesn't just generate code from designs — it generates code that actually fits into your codebase."
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: The Pitch — Customer-Ready -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="10" data-notes="SCRIPT: This is the 30-60 second pitch. Three columns: keep your design system, how we differentiate, why it matters. Hit each one fast and land on the outcome.">
+  <h2>Cursor for the Design & Planning Stage of the SDLC</h2>
+  <div class="subtitle">What to say when design-to-code comes up on a call</div>
+
+  <div class="grid-3" style="margin-top: 1rem;">
+    <div class="card" style="border-top: 4px solid var(--blue);">
+      <h3 style="font-size: 1.1rem; color: var(--blue); margin-bottom: 0.75rem;">Keep Your Design System, Get More From It</h3>
+      <ul style="font-size: 1rem; color: var(--text-light); line-height: 1.7; padding-left: 1.1rem;">
+        <li>You don't change how you work</li>
+        <li>Cursor connects to your <span class="keyword">design system</span> through <span class="keyword">Figma MCP</span></li>
+        <li>Converts designs directly into <span class="keyword">codebase-compatible code</span></li>
+        <li>Your framework, your components, your patterns</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top: 4px solid var(--purple);">
+      <h3 style="font-size: 1.1rem; color: var(--purple); margin-bottom: 0.75rem;">How We Do It <em>Better</em></h3>
+      <ul style="font-size: 1rem; color: var(--text-light); line-height: 1.7; padding-left: 1.1rem;">
+        <li><span class="keyword">Hooks</span>, <span class="keyword">Skills</span>, and <span class="keyword">Agents</span> fine-tune output to your codebase</li>
+        <li>Engineers set <span class="keyword">guardrails</span> so all designer-produced code is near production-ready by default</li>
+        <li>Built-in <span class="keyword">browser editor</span> gives designers a Figma-like experience</li>
+        <li>They're writing code with the code part abstracted away</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-top: 4px solid var(--cyan);">
+      <h3 style="font-size: 1.1rem; color: var(--cyan); margin-bottom: 0.75rem;">Why It Matters: The Handoff Shrinks</h3>
+      <ul style="font-size: 1rem; color: var(--text-light); line-height: 1.7; padding-left: 1.1rem;">
+        <li><span class="keyword">Handoff</span> goes from many round trips to one or two</li>
+        <li>Designers push a near <span class="keyword">production-ready PR</span></li>
+        <li>Engineers approve and do final touches</li>
+        <li>No more rebuilding from scratch</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="emphasis" style="margin-top: 1.25rem; font-size: 1.2rem;">
+    <strong>The 10-second version:</strong>
+    <ul style="margin-top: 0.4rem; padding-left: 1.2rem; line-height: 1.8;">
+      <li>"Cursor takes your designers' design systems and workflows and translates them directly into production-ready code."</li>
+      <li>"Cursor enables designers to get 99% of the way to production on their own, without needing to pull in devs."</li>
+      <li>"What used to be weeks of back-and-forth has turned into a designer creating a production-ready PR in a matter of days."</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- end slide-container -->
+
+<!-- Navigation -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">←</button>
+  <span class="counter"><span id="current">1</span> / <span id="total">10</span></span>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
+</div>
+
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+  let substep = 0;
+  document.getElementById('total').textContent = total;
+
+  function getSubsteps(slide) {
+    return parseInt(slide.getAttribute('data-substeps') || '1', 10);
+  }
+
+  function applySubstep(slide, step) {
+    // Analogy slide: left/right focus
+    const grid = slide.querySelector('.analogy-grid');
+    if (grid) {
+      grid.classList.remove('focus-left', 'focus-right');
+      grid.classList.add(step === 0 ? 'focus-left' : 'focus-right');
+    }
+    // Branch slide: top/bottom focus
+    const branch = slide.querySelector('.flow-branch');
+    if (branch) {
+      branch.classList.remove('branch-focus-top', 'branch-focus-bottom');
+      branch.classList.add(step === 0 ? 'branch-focus-top' : 'branch-focus-bottom');
+    }
+  }
+
+  function showSlide(n) {
+    if (n < 1) n = 1;
+    if (n > total) n = total;
+    current = n;
+    substep = 0;
+    slides.forEach((s, i) => s.classList.toggle('active', i === current - 1));
+    document.getElementById('current').textContent = current;
+    document.getElementById('prevBtn').disabled = current === 1;
+    document.getElementById('nextBtn').disabled = current === total;
+    applySubstep(slides[current - 1], 0);
+  }
+
+  function advance() {
+    const slide = slides[current - 1];
+    const maxSub = getSubsteps(slide);
+    if (substep < maxSub - 1) {
+      substep++;
+      applySubstep(slide, substep);
+    } else {
+      showSlide(current + 1);
+    }
+  }
+
+  function retreat() {
+    const slide = slides[current - 1];
+    if (substep > 0) {
+      substep--;
+      applySubstep(slide, substep);
+    } else {
+      showSlide(current - 1);
+      // Jump to last substep of previous slide
+      const prevSlide = slides[current - 1];
+      const prevMax = getSubsteps(prevSlide);
+      if (prevMax > 1) {
+        substep = prevMax - 1;
+        applySubstep(prevSlide, substep);
+      }
+    }
+  }
+
+  function changeSlide(delta) {
+    if (delta > 0) advance();
+    else retreat();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+  });
+
+  showSlide(1);
+</script>
+</body>
+</html>
