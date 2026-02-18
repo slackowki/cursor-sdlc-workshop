@@ -21,18 +21,16 @@ const Slide08Phase2Design = () => (
             <div className="check-header">
               <div className="check-box"></div>
               <div>
-                <strong>Tell Cursor to sync and create a branch</strong>
+                <strong>Tell Cursor to sync your fork</strong>
               </div>
             </div>
             <div className="code-block">
               <code>
                 <span className="comment">Ask Cursor:</span>
                 <br />
-                "Sync my fork with the upstream repo, pull the
+                "Sync my fork with the upstream repo and pull
                 <br />
-                latest changes, and create a branch called
-                <br />
-                [team]/base-mvp"
+                the latest changes"
               </code>
             </div>
           </div>

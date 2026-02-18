@@ -19,18 +19,16 @@ const Slide09Phase3Develop = () => (
             <div className="check-header">
               <div className="check-box"></div>
               <div>
-                <strong>Tell Cursor to sync and create your branch</strong>
+                <strong>Tell Cursor to sync your fork</strong>
               </div>
             </div>
             <div className="code-block">
               <code>
                 <span className="comment">Ask Cursor:</span>
                 <br />
-                "Sync my fork with upstream, pull the latest,
+                "Sync my fork with upstream and pull the latest
                 <br />
-                and create a branch called
-                <br />
-                [your-name]/[feature]"
+                changes"
               </code>
             </div>
           </div>

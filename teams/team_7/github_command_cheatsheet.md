@@ -16,12 +16,11 @@ This tells the agent to:
 2. Download it to your computer
 
 ### Syncing (Before Starting New Work)
-> **Ask Cursor:** "Sync my fork with upstream, pull the latest changes, and create a branch called [branch-name]"
+> **Ask Cursor:** "Sync my fork with upstream and pull the latest changes"
 
 This tells the agent to:
 1. Get the latest updates from the original repo into your fork
 2. Download them to your computer
-3. Create a fresh branch for your next task
 
 ### Saving & Sharing Your Work
 > **Ask Cursor:** "Commit all my changes with the message '[description]', push to my fork, and open a PR to the original repo"
@@ -73,7 +72,7 @@ git pull origin main             # Download synced changes locally
 ```bash
 git add .                        # Stage all changes
 git commit -m "Your message"     # Save with a description
-git push origin [branch-name]    # Upload to your fork
+git push origin main             # Upload to your fork
 ```
 
 ### Opening a PR
@@ -109,5 +108,5 @@ gh pr create --title "..." --body "..."
 | Get latest changes | "Sync my fork with upstream and pull the latest" |
 | Save your work | "Commit my changes with message '[msg]'" |
 | Share your work | "Push to my fork and open a PR to the original repo" |
-| Start new task | "Sync my fork, pull latest, and create a branch called [name]" |
+| Start new task | "Sync my fork with upstream and pull the latest" |
 | Fix a problem | "I'm stuck — [describe what happened]" |

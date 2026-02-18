@@ -27,9 +27,9 @@ const Slide10Phase4Test = () => (
             <code>
               <span className="comment">Ask Cursor:</span>
               <br />
-              "Sync my fork with upstream, switch to main,
+              "Sync my fork with upstream and pull all the
               <br />
-              and pull all the latest changes"
+              latest changes"
             </code>
           </div>
         </div>

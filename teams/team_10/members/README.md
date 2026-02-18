@@ -4,12 +4,14 @@ Each team member creates their own file in this folder.
 
 ## What to Do
 
-> **Ask Cursor:** "Create my member file in this folder. My name is [name], role is [AE/FE/ADM], and a fun fact is [...]"
+> **Ask Cursor:** "Create my member file in this folder. My name is [name], role is [AE/FE/ADM], and my GitHub username is [username]"
 
 Or do it manually:
 1. Create a new file named `[your-name].md` (e.g., `alice.md`)
 2. Add your info using the template below
 3. Let Cursor commit and push for you
+
+> **Don't know your GitHub username?** Ask Cursor to run `gh api user --jq .login` to find it for you.
 
 ## Template
 
@@ -17,7 +19,7 @@ Or do it manually:
 # [Your Name]
 
 **Role:** [AE/FE/ADM]
-**Fun fact:** [Something about you]
+**GitHub:** [@your-username](https://github.com/your-username)
 ```
 
 ## Example
@@ -26,7 +28,7 @@ Or do it manually:
 # Alice Smith
 
 **Role:** AE
-**Fun fact:** I once debugged a production issue while skydiving (not recommended)
+**GitHub:** [@asmith](https://github.com/asmith)
 ```
 
 ## Example File Structure

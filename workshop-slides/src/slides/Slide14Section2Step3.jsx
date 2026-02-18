@@ -14,16 +14,16 @@ const Slide14Section2Step3 = () => (
             <div className="check-header">
               <div className="check-box"></div>
               <div>
-                <strong>Create a feature branch</strong>
+                <strong>Sync your fork</strong>
               </div>
             </div>
             <div className="code-block">
               <code>
                 <span className="comment">Ask Cursor:</span>
                 <br />
-                "Create a branch called
+                "Sync my fork with upstream and pull the latest
                 <br />
-                [your-team]/adds-[feature]"
+                changes"
               </code>
             </div>
           </div>
