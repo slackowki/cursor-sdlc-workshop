@@ -22,9 +22,11 @@ const Slide07Phase1Plan = () => (
               <code>
                 <span className="comment">Ask Cursor:</span>
                 <br />
-                "Fork this repo [REPO_URL], clone my fork,
+                "Fork this repo
                 <br />
-                and create a branch called [team]/setup"
+                https://github.com/Rperry2174/cursor-sdlc-workshop
+                <br />
+                and clone my fork"
               </code>
             </div>
           </div>
@@ -45,11 +47,9 @@ const Slide07Phase1Plan = () => (
               <code>
                 <span className="comment">Ask Cursor:</span>
                 <br />
-                "Add me to team_[X]. Create my member file
+                "My name is [name] and I'm on team [X].
                 <br />
-                in teams/team_[X]/members/[your-name].md.
-                <br />
-                My role is [AE/FE/ADM] and my GitHub username is [username]"
+                Add me to the team."
               </code>
             </div>
           </div>
